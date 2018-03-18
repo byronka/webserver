@@ -1,5 +1,5 @@
 #!/usr/local/bin/bash
 
 echo deleting all .o files
-rm *.o
+rm build/*.o
 echo all .o files deleted
