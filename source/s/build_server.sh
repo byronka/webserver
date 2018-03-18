@@ -4,16 +4,22 @@
 #a non-zero (error) exit.
 set -e
 
-if [ ! -d "build" ]; then
-  mkdir build
+#show commands as they run
+set -x
+
+#things like build directory, etc.
+source constants.sh
+
+if [ ! -d "$BUILD_DIRECTORY" ]; then
+  mkdir $BUILD_DIRECTORY
 fi
 echo building objects, linking, and running server..
-clang -c server_library.c -o build/server_library.o
-clang -c server.c -o build/server.o
+clang -c server_library.c -o $BUILD_DIRECTORY/server_library.o
+clang -c server.c -o $BUILD_DIRECTORY/server.o
 echo objects built
 clang \
-  build/server_library.o \
-  build/server.o \
-  -o build/server
+  $BUILD_DIRECTORY/server_library.o \
+  $BUILD_DIRECTORY/server.o \
+  -o $BUILD_DIRECTORY/server
 echo objects linked
 
