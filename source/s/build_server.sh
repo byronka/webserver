@@ -16,6 +16,4 @@ clang \
   build/server.o \
   -o build/server
 echo objects linked
-build/server
-echo server run
 
