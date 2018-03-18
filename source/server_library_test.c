@@ -133,13 +133,25 @@ void test_calculateSize_large_happyPath()
 
 // test case
 /* 
+   we should see the procedure return XLARGE
+   when we pass in a value of 45.
+ */
+void test_calculateSize_xlarge_happyPath()
+{
+    TestStart("test_calculateSize_xlarge_happyPath");
+    assert(calculate_size(45) == XLARGE);
+    TestEnd();
+}
+
+// test case
+/* 
    we should see the procedure return UNKNOWN
-   when we pass in a value of 45 or -5
+   when we pass in a value of 56 or -5
  */
 void test_calculateSize_unknown()
 {
     TestStart("test_calculateSize_unknown");
-    assert(calculate_size(45) == UNKNOWN);
+    assert(calculate_size(56) == UNKNOWN);
     assert(calculate_size(-5) == UNKNOWN);
     TestEnd();
 }
@@ -154,6 +166,7 @@ int main()
     test_calculateSize_small_happyPath();
     test_calculateSize_medium_happyPath();
     test_calculateSize_large_happyPath();
+    test_calculateSize_xlarge_happyPath();
     test_calculateSize_unknown();
     printf("Total tests passed: %d", tests_passed);
     printf(" of %d\n", num_tests);

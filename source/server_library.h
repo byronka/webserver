@@ -1,4 +1,4 @@
-typedef enum {SMALL, MEDIUM, LARGE, UNKNOWN} pant_size;
+typedef enum {SMALL, MEDIUM, LARGE, XLARGE, UNKNOWN} pant_size;
 
 int my_div(int x, int y);
 
