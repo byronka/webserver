@@ -1,2 +1,4 @@
 *.o
-source/build
+
+# source/b is the build directory
+source/b
