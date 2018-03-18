@@ -29,5 +29,9 @@ calculate_size(int waist_size)
           return UNKNOWN;
         }
 
+        if (waist_size < 0) {
+          return UNKNOWN;
+        }
+
         return UNKNOWN;
 }
