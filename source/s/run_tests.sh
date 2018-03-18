@@ -5,7 +5,7 @@
 set -e
 
 #include things like BUILD_DIRECTORY
-source constants.sh
+source s/constants.sh
 
 if [ ! -d "$BUILD_DIRECTORY" ]; then
   mkdir $BUILD_DIRECTORY

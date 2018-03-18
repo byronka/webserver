@@ -8,7 +8,7 @@ set -e
 set -x
 
 #things like build directory, etc.
-source constants.sh
+source s/constants.sh
 
 if [ ! -d "$BUILD_DIRECTORY" ]; then
   mkdir $BUILD_DIRECTORY

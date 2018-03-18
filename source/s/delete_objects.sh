@@ -7,7 +7,7 @@ set -e
 set -x
 
 #pulls in constants we need, like build directory
-source constants.sh
+source s/constants.sh
 
 echo deleting all .o files
 rm $BUILD_DIRECTORY/*.o

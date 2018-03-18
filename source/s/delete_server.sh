@@ -6,6 +6,9 @@ set -x
 #halts script processing on an error.
 set -e
 
+#get some constants like BUILD_DIRECTORY
+source s/constants.sh
+
 echo deleting server executable
-rm build/server
+rm $BUILD_DIRECTORY/server
 echo server executable deleted
