@@ -1,5 +1,9 @@
 #!/usr/local/bin/bash
 
+#following will cause the script to halt if any program returns
+#a non-zero (error) exit.
+set -e
+
 if [ ! -d "build" ]; then
   mkdir build
 fi
