@@ -33,5 +33,9 @@ calculate_size(int waist_size)
           return UNKNOWN;
         }
 
+        if (waist_size > 55) {
+          return UNKNOWN;
+        }
+
         return UNKNOWN;
 }
