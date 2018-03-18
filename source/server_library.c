@@ -17,8 +17,8 @@ calculate_size(int waist_size)
         }
         if (waist_size >= 30 && waist_size < 36) {
                 return MEDIUM;
-        }
-#adding a comment
+        } 
+        // an interesting comment
         if (waist_size >= 36 && waist_size < 44) {
                 return LARGE;
         }
