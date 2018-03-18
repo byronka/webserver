@@ -98,36 +98,36 @@ void test_mydiv_div0()
 // test case
 /* 
    we should see the procedure return SMALL
-   when we pass in a value of 15.
+   when we pass in a value of 25.
  */
 void test_calculateSize_small_happyPath()
 {
     TestStart("test_calculateSize_small_happyPath");
-    assert(calculate_size(15) == SMALL);
+    assert(calculate_size(25) == SMALL);
     TestEnd();
 }
 
 // test case
 /* 
    we should see the procedure return MEDIUM
-   when we pass in a value of 25.
+   when we pass in a value of 30.
  */
 void test_calculateSize_medium_happyPath()
 {
     TestStart("test_calculateSize_medium_happyPath");
-    assert(calculate_size(25) == MEDIUM);
+    assert(calculate_size(30) == MEDIUM);
     TestEnd();
 }
 
 // test case
 /* 
    we should see the procedure return LARGE
-   when we pass in a value of 35.
+   when we pass in a value of 36.
  */
 void test_calculateSize_large_happyPath()
 {
     TestStart("test_calculateSize_large_happyPath");
-    assert(calculate_size(35) == LARGE);
+    assert(calculate_size(36) == LARGE);
     TestEnd();
 }
 

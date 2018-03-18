@@ -8,15 +8,15 @@ int my_div(int x, int y)
 }
 
 pant_size calculate_size(int waist_size) {
-    if (waist_size >= 10 && waist_size <= 20) {
+    if (waist_size >= 25 && waist_size < 30) {
       return SMALL;
     }
 
-    if (waist_size >= 21 && waist_size <= 30) {
+    if (waist_size >= 30 && waist_size < 36) {
       return MEDIUM;
     }
     
-    if (waist_size >= 31  && waist_size < 40) {
+    if (waist_size >= 36  && waist_size < 44) {
       return LARGE;
     }
 
