@@ -95,15 +95,12 @@ int run_server()
   sockfd = assign_port_number_to_socket(sockfd, self);
   sockfd = make_listening_socket(sockfd);
 
-  /*---Forever... ---*/
+  /* loop forever */
   while (TRUE) { 
     int clientfd;
     struct sockaddr_in client_addr;
-    int addrlen=sizeof(client_addr);
 
-    /*---accept a connection (creating a data pipe)---*/
-    clientfd = accept(sockfd, (struct sockaddr*)&client_addr, &addrlen);
-    printf("%s:%d connected\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+    clientfd = accept_a_connection(sockfd, &client_addr);
 
     /*---Echo back anything sent---*/
     send(clientfd, buffer, recv(clientfd, buffer, MAXBUF, 0), 0);
@@ -115,6 +112,15 @@ int run_server()
   /*---Clean up (should never get here!)---*/
   close(sockfd);
   return 0;
+}
+
+int accept_a_connection(int sockfd, struct sockaddr_in * client_addr) {
+    int addrlen=sizeof(client_addr);
+    struct sockaddr_in client_addr_copy;
+    client_addr_copy = *client_addr;
+    int clientfd = accept(sockfd, (struct sockaddr*)&client_addr_copy, &addrlen);
+    printf("%s:%d connected\n", inet_ntoa(client_addr_copy.sin_addr), ntohs(client_addr_copy.sin_port));
+    return clientfd;
 }
 
 int create_streaming_socket(int sockfd) {
