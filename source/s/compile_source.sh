@@ -6,8 +6,6 @@ SCRIPT=$(readlink -f "$0")
 CURRENT_DIR=$(dirname "$SCRIPT")
 source $CURRENT_DIR/script_standards.sh
 
-#cancelling the debugging of this script.
-set +x
 
 #setting variable to count number of objects built
 COUNT_OF_OBJECTS_BUILT=0
@@ -32,15 +30,15 @@ build() {
     echo "building $1.c because it didn't exist"
     cc -c $SRC/$1.c -o $BLD/$1.o
     COUNT_OF_OBJECTS_BUILT=$((COUNT_OF_OBJECTS_BUILT + 1))
+    return
   fi
-  return
 
   if [ "$SRC/$1.c" -nt "$BLD/$1.o" ]; then
     echo "building $1.c because the source file is newer that the object file"
     cc -c $SRC/$1.c -o $BLD/$1.o
     COUNT_OF_OBJECTS_BUILT=$((COUNT_OF_OBJECTS_BUILT + 1))
+    return
   fi
-  return
 }
 
 build "server_library_test"
