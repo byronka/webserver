@@ -23,6 +23,9 @@ fi
 
 echo building objects, linking, and running tests..
 
+# a handy-dandy function that builds objects if, and *only* if
+# the objct file either doesn't exist or if the source file is
+# newer than the object file.
 build() {
   # if the built file doesn't exist, built it and return
   if [ ! -f "$BLD/$1.o" ]; then

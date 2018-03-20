@@ -20,10 +20,6 @@ export EDITOR=vim
 # the location for home.
 export WEBSERVER_DEVEL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-#change our home directory to the home for webserver dev.
-# this makes things a little easier to navigate.
-export HOME=$WEBSERVER_DEVEL_HOME
-
 # the source directory, where our source files are located
 export WEBSERVER_DEVEL_SOURCE="$WEBSERVER_DEVEL_HOME/source"
 
@@ -56,8 +52,3 @@ devhelp() {
   echo "  3. blah"
 }
 
-#aliases
-#necessary to call vim this way because it won't find the 
-#.vimrc in the default home location - because we adjusted the location
-#of the default home.
-alias vim="vim -u /home/bkatz/.vimrc"

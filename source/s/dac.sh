@@ -1,2 +1,6 @@
 #!/usr/bin/env sh
-./delete_all_compiled.sh
+
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+
+$CURRENT_DIR/delete_all_compiled.sh

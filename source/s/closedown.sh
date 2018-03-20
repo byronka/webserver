@@ -5,5 +5,5 @@
 set +e
 
 #stop showing commands as they run
-set +x
+#set +x
 

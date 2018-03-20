@@ -15,6 +15,6 @@ fi
 set -e
 
 #show commands as they run
-set -x
+#set -x
 
 
