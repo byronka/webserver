@@ -1,10 +1,11 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#show commands as we run them
-set -x
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
-#stop on error
-set -e
+$WEBSERVER_DEVEL_SCRIPT/run_tests.sh 
+$WEBSERVER_DEVEL_SCRIPT/delete_tests.sh
 
-./run_tests.sh 
-./delete_tests.sh
+source $CURRENT_DIR/closedown.sh

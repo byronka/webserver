@@ -1,14 +1,12 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#halts script processing on error
-set -e
-
-#shows commands as we run them
-set -x
-
-#get some constants like BUILD_DIRECTORY
-source s/constants.sh
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
 echo deleting tests...
-rm $BUILD_DIRECTORY/tests
+rm $WEBSERVER_DEVEL_BUILD/tests
 echo tests deleted.
+
+source $CURRENT_DIR/closedown.sh

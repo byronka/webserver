@@ -1,14 +1,12 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#shows commands as we run them
-set -x
-
-#halts script processing on an error.
-set -e
-
-#get some constants like BUILD_DIRECTORY
-source s/constants.sh
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
 echo deleting server executable
-rm $BUILD_DIRECTORY/server
+rm $WEBSERVER_DEVEL_BUILD/server
 echo server executable deleted
+
+source $CURRENT_DIR/closedown.sh

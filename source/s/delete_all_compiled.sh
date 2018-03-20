@@ -1,11 +1,12 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#show commands as they run
-set -x
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
-#pull in constants, like BUILD_DIRECTORY
-source s/constants.sh
-
-if [ -d "$BUILD_DIRECTORY" ]; then
-  rm -fr $BUILD_DIRECTORY
+if [ -d "$WEBSERVER_DEVEL_BUILD" ]; then
+  rm -fr $WEBSERVER_DEVEL_BUILD
 fi
+
+source $CURRENT_DIR/closedown.sh

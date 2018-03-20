@@ -1,0 +1,63 @@
+# this script will set appropriate environment variables
+# so that we can add flexibility and robustness to our work
+# environment.
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+  fi
+
+#set our editor to something nice :)
+export EDITOR=vim
+
+
+# we will set the current directory as our home directory so
+# scripts can run from anywhere correctly.  All scripts
+# must reference WEBSERVER_DEVEL_HOME and this script
+# to document what is happening.
+# Absolute path to this script, which happens to reside in the
+# top-level of the webserver application - therefore providing us
+# the location for home.
+export WEBSERVER_DEVEL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#change our home directory to the home for webserver dev.
+# this makes things a little easier to navigate.
+export HOME=$WEBSERVER_DEVEL_HOME
+
+# the source directory, where our source files are located
+export WEBSERVER_DEVEL_SOURCE="$WEBSERVER_DEVEL_HOME/source"
+
+# the build directory, where compiled files are located
+export WEBSERVER_DEVEL_BUILD="$WEBSERVER_DEVEL_SOURCE/b"
+
+# we will add the script directory to our path so we can run
+# the build scripts from anywhere.
+export WEBSERVER_DEVEL_SCRIPT="$WEBSERVER_DEVEL_SOURCE/s"
+
+export PATH=$PATH:$WEBSERVER_DEVEL_SCRIPT
+
+# Setting an environment variable to indicate this file
+# was run.
+export WEBSERVER_ENV_VARIABLES="configured"
+
+
+echo
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "invoking subshell.  Note you are now in a subshell"
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo
+#change the prompt so it's clear we are in dev mode.
+export PS1="[Developing] [\W] \$ "
+
+devhelp() {
+  echo "            --- HELP ---         "
+  echo "  1. blah"
+  echo "  2. blah"
+  echo "  3. blah"
+}
+
+#aliases
+#necessary to call vim this way because it won't find the 
+#.vimrc in the default home location - because we adjusted the location
+#of the default home.
+alias vim="vim -u /home/bkatz/.vimrc"

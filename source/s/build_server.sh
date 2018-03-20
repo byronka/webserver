@@ -1,25 +1,17 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#following will cause the script to halt if any program returns
-#a non-zero (error) exit.
-set -e
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
-#show commands as they run
-set -x
+$CURRENT_DIR/compile_source.sh
 
-#things like build directory, etc.
-source s/constants.sh
-
-if [ ! -d "$BUILD_DIRECTORY" ]; then
-  mkdir $BUILD_DIRECTORY
-fi
-echo building objects, linking, and running server..
-clang -c server_library.c -o $BUILD_DIRECTORY/server_library.o
-clang -c server.c -o $BUILD_DIRECTORY/server.o
-echo objects built
-clang \
-  $BUILD_DIRECTORY/server_library.o \
-  $BUILD_DIRECTORY/server.o \
-  -o $BUILD_DIRECTORY/server
+#linking the objects for non-test use
+cc \
+  $WEBSERVER_DEVEL_BUILD/server_library.o 
+  $WEBSERVER_DEVEL_BUILD/server.o \
+  -o $WEBSERVER_DEVEL_BUILD/server
 echo objects linked
 
+source $CURRENT_DIR/closedown.sh

@@ -1,14 +1,12 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env sh
 
-#will stop script processing on an error
-set -e
-
-#shows commands as they run.
-set -x
-
-#pulls in constants we need, like build directory
-source s/constants.sh
+# reference some boilerplate stuff - constants and more.
+SCRIPT=$(readlink -f "$0")
+CURRENT_DIR=$(dirname "$SCRIPT")
+source $CURRENT_DIR/script_standards.sh
 
 echo deleting all .o files
-rm $BUILD_DIRECTORY/*.o
+rm $WEBSERVER_DEVEL_BUILD/*.o
 echo all .o files deleted
+
+source $CURRENT_DIR/closedown.sh
