@@ -7,9 +7,13 @@
 #include <resolv.h>
 #include <arpa/inet.h>
 #include <errno.h>
+#include <strings.h>
 
 #define MY_PORT   9999
 #define MAXBUF    1024
+
+#define TRUE 1
+#define FALSE 0
 
 int 
 my_div(int x, int y)
@@ -86,35 +90,14 @@ int run_server()
   struct sockaddr_in self;
   char buffer[MAXBUF];
 
-  /*---Create streaming socket---*/
-  if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) {
-    perror("Socket");
-    exit(errno);
-  }
-
-  /*---Initialize address/port structure---*/
-  bzero(&self, sizeof(self));
-  self.sin_family = AF_INET;
-  self.sin_port = htons(MY_PORT);
-  self.sin_addr.s_addr = INADDR_ANY;
-
-  /*---Assign a port number to the socket---*/
-    if ( bind(sockfd, (struct sockaddr*)&self, sizeof(self)) != 0 )
-  {
-    perror("socket--bind");
-    exit(errno);
-  }
-
-  /*---Make it a "listening socket"---*/
-  if ( listen(sockfd, 20) != 0 )
-  {
-    perror("socket--listen");
-    exit(errno);
-  }
+  sockfd = create_streaming_socket(sockfd);
+  self = initialize_address_port_structure(self);
+  sockfd = assign_port_number_to_socket(sockfd, self);
+  sockfd = make_listening_socket(sockfd);
 
   /*---Forever... ---*/
-  while (1)
-  { int clientfd;
+  while (TRUE) { 
+    int clientfd;
     struct sockaddr_in client_addr;
     int addrlen=sizeof(client_addr);
 
@@ -134,8 +117,43 @@ int run_server()
   return 0;
 }
 
+int create_streaming_socket(int sockfd) {
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
+  if ( sockfd < 0 ) {
+    perror("Socket");
+    exit(errno);
+  }
+  return sockfd;
+}
 
+struct sockaddr_in initialize_address_port_structure(struct sockaddr_in self) {
+  bzero(&self, sizeof(self));
+  self.sin_family = AF_INET;
+  self.sin_port = htons(MY_PORT);
+  self.sin_addr.s_addr = INADDR_ANY;
+  return self;
+}
+
+int assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
+  int bind_result = bind(sockfd, (struct sockaddr*)&self, sizeof(self));
+  if ( bind_result != 0 )
+  {
+    perror("socket--bind");
+    exit(errno);
+  }
+  return sockfd;
+
+}
+
+int make_listening_socket(int sockfd) {
+  if ( listen(sockfd, 20) != 0 )
+  {
+    perror("socket--listen");
+    exit(errno);
+  }
+  return sockfd;
+}
 
 
 // vim: ai:tw=70
