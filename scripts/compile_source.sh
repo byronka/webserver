@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+CC=$WEBSERVER_C_COMPILER 
 
 # reference some boilerplate stuff - constants and more.
 SCRIPT=$(readlink -f "$0")
@@ -30,14 +31,18 @@ build() {
   # if the built file doesn't exist, built it and return
   if [ ! -f "$BLD/$1.o" ]; then
     echo "building $1.c because it didn't exist"
-    cc -c $SRC/$1.c -o $BLD/$1.o
+    set -x
+    $CC --std=gnu99 -c $SRC/$1.c -o $BLD/$1.o
+    set +x
     COUNT_OF_OBJECTS_BUILT=$((COUNT_OF_OBJECTS_BUILT + 1))
     return
   fi
 
   if [ "$SRC/$1.c" -nt "$BLD/$1.o" ]; then
     echo "building $1.c because the source file is newer that the object file"
-    cc -c $SRC/$1.c -o $BLD/$1.o
+    set -x
+    $CC --std=gnu99 -c $SRC/$1.c -o $BLD/$1.o
+    set +x
     COUNT_OF_OBJECTS_BUILT=$((COUNT_OF_OBJECTS_BUILT + 1))
     return
   fi
