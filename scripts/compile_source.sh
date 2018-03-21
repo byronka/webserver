@@ -51,6 +51,7 @@ build() {
 #refer to the build function above to see what is happening here...
 echo building objects...
 build "server_library_test"
+build "server_library_test_integration"
 build "server_library"
 build "business_library"
 build "business_library_test"
