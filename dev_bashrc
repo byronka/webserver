@@ -37,6 +37,9 @@ export PATH=$PATH:$WEBSERVER_DEVEL_SCRIPT
 # was run.
 export WEBSERVER_ENV_VARIABLES="configured"
 
+# choose the c compiler we want to use.
+export WEBSERVER_C_COMPILER="clang"
+
 
 echo
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
