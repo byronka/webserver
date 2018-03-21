@@ -65,9 +65,9 @@ devhelp() {
   echo
   echo "   run_and_delete_tests.sh - runs the tests, then deletes the test executables"
   echo
-  echo "   run_server - builds if necessary, always links, then runs server"
+  echo "   run_server.sh - builds if necessary, always links, then runs server"
   echo
-  echo "   run_tests - builds, links, and runs the tests"
+  echo "   run_tests.sh - builds, links, and runs the tests"
  
 }
 
