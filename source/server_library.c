@@ -16,7 +16,7 @@ int run_server()
   int sockfd = create_streaming_socket();
   struct sockaddr_in self = initialize_address_port_structure();
   assign_port_number_to_socket(sockfd, self);
-  sockfd = make_listening_socket(sockfd);
+  make_listening_socket(sockfd);
 
   /* loop forever */
   while (TRUE) { 
@@ -74,13 +74,12 @@ void assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
   }
 }
 
-int make_listening_socket(int sockfd) {
+void make_listening_socket(int sockfd) {
   if ( listen(sockfd, 20) != 0 )
   {
     perror("socket--listen");
     exit(errno);
   }
-  return sockfd;
 }
 
 

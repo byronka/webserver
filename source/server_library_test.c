@@ -33,6 +33,11 @@
   printf("-- Testing %s ... \n", #name); \
   name();
 
+int socket_return_value = 0;
+int bind_return_value = 0;
+int listen_return_value = 0;
+int should_error_out = FALSE;
+
 // count of tests run
 static int tests_run = 0;
 
@@ -41,19 +46,32 @@ static int tests_passed = 0;
 
 // stub function - overriding the real function for testing.
 int socket(int domain, int type, int protocol) {
-  return 42;
+  return socket_return_value;
 }
 
 // stub function - overriding the real function for testing.
 int bind(int socket, const struct sockaddr *address, socklen_t address_len) {
-  return 0;
+  return bind_return_value;
 }
 
 // stub function - overriding the real function for testing.
-void perror(const char *s) {
-  printf("failure: error: %s\n", s);
-  exit(1);
+int listen(int sockfd, int backlog) {
+  return listen_return_value;
 }
+
+
+// stub function - overriding the real function for testing.
+void perror(const char *s) {
+  if (should_error_out) {
+    printf("failure: error: %s\n", s);
+    exit(1);
+  } else {
+    assert(TRUE || "errored_out_as_expected");
+  }
+}
+
+
+
 
 // TESTS START 
 //
@@ -62,6 +80,7 @@ void perror(const char *s) {
 // Unit Test
 void
 test_create_streaming_socket() {
+  socket_return_value = 42;
   int sockfd = create_streaming_socket();
   assert(sockfd == 42);
 }
@@ -83,7 +102,36 @@ test_assign_port_number_to_socket() {
   int sockfd = 42;
   assign_port_number_to_socket(sockfd, self);
   // if there were any error, we would have exited before this point.
-  assert("no error" == "no error");
+  assert(TRUE || "passed because no error");
+}
+
+// Unit Test
+void
+test_assign_port_number_to_socket_negative_case() {
+  struct sockaddr_in self = initialize_address_port_structure();
+  int sockfd = 42;
+  bind_return_value = 123;
+  assign_port_number_to_socket(sockfd, self);
+  // there will be an error because bind will return a non-zero value (123)
+  should_error_out = TRUE;
+  assert("Should not" == "get here");
+}
+
+// Unit Test
+void test_make_listening_socket() {
+  int sockfd = 42;
+  make_listening_socket(sockfd);
+  // if there were any error, we would have exited before this point.
+  assert(TRUE || "passed because no error");
+}
+
+// Unit Test
+void test_make_listening_socket_negative_case() {
+  int sockfd = 42;
+  listen_return_value = 123;
+  make_listening_socket(sockfd);
+  // there will be an error because bind will return a non-zero value (123)
+  assert(FALSE && "Should not get here");
 }
 
 
@@ -97,6 +145,9 @@ main()
         test(test_create_streaming_socket);
         test(test_initialize_address_port_structure);
         test(test_assign_port_number_to_socket);
+        test(test_assign_port_number_to_socket_negative_case);
+        test(test_make_listening_socket);
+        test(test_make_listening_socket_negative_case);
         printf("Total tests passed: %d", tests_passed);
         printf(" of %d\n", tests_run);
         return !(tests_passed == tests_run);
