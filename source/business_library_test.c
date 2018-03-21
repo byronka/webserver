@@ -19,6 +19,7 @@
           printf("success\n"); \
         } else {          \
           printf("failure\n"); \
+          exit(123); \
         }
 
 #define test(name) \

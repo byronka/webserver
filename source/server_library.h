@@ -10,4 +10,4 @@ void make_listening_socket(int sockfd);
 int accept_a_connection(int sockfd);
 int create_usable_socket(int port_number);
 void accept_receive_send_back_data(int sockfd);
-
+void do_exit();

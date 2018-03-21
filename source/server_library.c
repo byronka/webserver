@@ -10,6 +10,7 @@
 #include <strings.h>
 #include <unistd.h>
 
+
 int run_server(int port_number)
 {   
   int sockfd = create_usable_socket(port_number);
@@ -21,7 +22,10 @@ int run_server(int port_number)
   return 0;
 }
 
-void accept_receive_send_back_data(sockfd) {
+/*
+ * Simply receive any data sent and echo it back to the user
+ */
+void accept_receive_send_back_data(int sockfd) {
     char buffer[MAXBUF];
     int clientfd = accept_a_connection(sockfd);
 
@@ -34,6 +38,10 @@ void accept_receive_send_back_data(sockfd) {
     close(clientfd);
 }
 
+/*
+ * go through all the steps to produce a socket ready for
+ * sending and receiving
+ */
 int create_usable_socket(int port_number) {
   int sockfd = create_streaming_socket();
   struct sockaddr_in self = initialize_address_port_structure(port_number);
@@ -55,7 +63,7 @@ int create_streaming_socket() {
 
   if ( sockfd < 0 ) {
     perror("Socket");
-    exit(errno);
+    do_exit(errno);
   }
   return sockfd;
 }
@@ -74,7 +82,7 @@ void assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
   if ( bind_result != 0 )
   {
     perror("socket--bind");
-    exit(errno);
+    do_exit(errno);
   }
 }
 
@@ -82,8 +90,18 @@ void make_listening_socket(int sockfd) {
   if ( listen(sockfd, 20) != 0 )
   {
     perror("socket--listen");
-    exit(errno);
+    do_exit(errno);
   }
+}
+
+/**
+ * wrapping exit so it doesn't actually exit while debugging and
+ * testing.
+ */
+void do_exit(int errno) {
+#ifndef DEBUG
+  exit(errno);
+#endif
 }
 
 
