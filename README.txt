@@ -26,5 +26,11 @@ this code.  We have no database.  No database connector.  No web
 server, no plugins, no unit test framework, no IoC framework, no build
 framework, no dependency or package manager.
 2) _Heavy on the unit tests and documentation_.
+3) Use fewer tools to do more.  Be versatile.  For example, you don't
+  need a million types of assert functions.  Just be smart about how
+  you use them.  e.g. assert(FALSE && "This should fail")
+
+
+
 // The following line sets the configuration when using Vim
 // vim: ai:tw=70
