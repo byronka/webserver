@@ -37,6 +37,7 @@ int socket_return_value = 0;
 int bind_return_value = 0;
 int listen_return_value = 0;
 int should_error_out = FALSE;
+int accept_return_value = 0;
 
 // count of tests run
 static int tests_run = 0;
@@ -68,6 +69,12 @@ void perror(const char *s) {
   } else {
     assert(TRUE || "errored_out_as_expected");
   }
+}
+
+// stub function - overriding the real function for testing.
+int accept(int socket, struct sockaddr *restrict address,
+                  socklen_t *restrict address_len) {
+  return accept_return_value;
 }
 
 
@@ -134,6 +141,15 @@ void test_make_listening_socket_negative_case() {
   assert(FALSE && "Should not get here");
 }
 
+// Unit Test
+void test_accept_a_connection() {
+  int sockfd = 42;
+  const int return_value = 123;
+  accept_return_value = return_value;
+  int result_clientfd = accept_a_connection(sockfd);
+  assert(result_clientfd == return_value);
+}
+
 
 // TESTS END
 //
@@ -148,6 +164,7 @@ main()
         test(test_assign_port_number_to_socket_negative_case);
         test(test_make_listening_socket);
         test(test_make_listening_socket_negative_case);
+        test(test_accept_a_connection);
         printf("Total tests passed: %d", tests_passed);
         printf(" of %d\n", tests_run);
         return !(tests_passed == tests_run);
