@@ -5,15 +5,15 @@ SCRIPT=$(readlink -f "$0")
 CURRENT_DIR=$(dirname "$SCRIPT")
 source $CURRENT_DIR/script_standards.sh
 
+#compile source files to object files if they need compiling.
 $CURRENT_DIR/compile_source.sh
 
-#link all the files we need for the tests we want to run.
+#linking the objects for non-test use
 cc \
   $WEBSERVER_DEVEL_BUILD/server_library.o \
-  $WEBSERVER_DEVEL_BUILD/server_library_test.o \
-  -o $WEBSERVER_DEVEL_BUILD/tests 
-echo objects linked
-$WEBSERVER_DEVEL_BUILD/tests
-echo tests run
+  $WEBSERVER_DEVEL_BUILD/business_library.o \
+  $WEBSERVER_DEVEL_BUILD/server.o \
+  -o $WEBSERVER_DEVEL_BUILD/server
+echo work finished.
 
 source $CURRENT_DIR/closedown.sh

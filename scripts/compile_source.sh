@@ -16,14 +16,16 @@ BLD=$WEBSERVER_DEVEL_BUILD
 
 # if the build directory doesn't exist, create it.
 if [ ! -d "$WEBSERVER_DEVEL_BUILD" ]; then
+  echo "build directory didn't exist.  creating it..."
   mkdir $WEBSERVER_DEVEL_BUILD
+  echo "build directory created"
 fi
-
-echo building objects, linking, and running tests..
 
 # a handy-dandy function that builds objects if, and *only* if
 # the objct file either doesn't exist or if the source file is
 # newer than the object file.
+# parameters: takes the name of a source file
+# results: builds an object file if needed, otherwise does nothing.
 build() {
   # if the built file doesn't exist, built it and return
   if [ ! -f "$BLD/$1.o" ]; then
@@ -41,8 +43,12 @@ build() {
   fi
 }
 
+#refer to the build function above to see what is happening here...
+echo building objects...
 build "server_library_test"
 build "server_library"
+build "business_library"
+build "business_library_test"
 build "server"
 
 echo $COUNT_OF_OBJECTS_BUILT objects built
