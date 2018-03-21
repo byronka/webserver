@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-bash --rcfile dev_bashrc
+bash --rcfile webserver_env_and_more
