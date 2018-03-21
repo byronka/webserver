@@ -1,12 +1,3 @@
-*.o
+# ./build is the build directory
+build
 
-# source/b is the build directory
-source/b
-
-#since we alter the location of the user's $HOME variable, 
-#less will put stuff here.
-.lesshst
-
-#since we alter the location of the user's $HOME variable, 
-#vim will put stuff here.
-.viminfo
