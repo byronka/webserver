@@ -38,7 +38,7 @@ export PATH=$PATH:$WEBSERVER_DEVEL_SCRIPT
 export WEBSERVER_ENV_VARIABLES="configured"
 
 # choose the c compiler we want to use.
-export WEBSERVER_C_COMPILER="clang"
+export WEBSERVER_C_COMPILER="gcc"
 
 
 echo
@@ -56,12 +56,6 @@ devhelp() {
   echo "                     links them together as needed for non-test usage"
   echo
   echo "   delete_all_compiled.sh - simply deletes the build directory"
-  echo
-  echo "   delete_objects.sh - deletes all the object files in build directory"
-  echo
-  echo "   delete_server.sh - deletes the server executable"
-  echo
-  echo "   delete_tests.sh - deletes the test executables"
   echo
   echo "   run_and_delete_tests.sh - runs the tests, then deletes the test executables"
   echo
