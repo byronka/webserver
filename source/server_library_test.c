@@ -39,9 +39,20 @@ static int tests_run = 0;
 // count of tests passed
 static int tests_passed = 0;
 
-// stub function
+// stub function - overriding the real function for testing.
 int socket(int domain, int type, int protocol) {
   return 42;
+}
+
+// stub function - overriding the real function for testing.
+int bind(int socket, const struct sockaddr *address, socklen_t address_len) {
+  return 0;
+}
+
+// stub function - overriding the real function for testing.
+void perror(const char *s) {
+  printf("failure: error: %s\n", s);
+  exit(1);
 }
 
 // TESTS START 
@@ -65,6 +76,17 @@ test_initialize_address_port_structure() {
   assert(output.sin_addr.s_addr == INADDR_ANY);
 }
 
+// Unit Test
+void
+test_assign_port_number_to_socket() {
+  struct sockaddr_in self = initialize_address_port_structure();
+  int sockfd = 42;
+  assign_port_number_to_socket(sockfd, self);
+  // if there were any error, we would have exited before this point.
+  assert("no error" == "no error");
+}
+
+
 // TESTS END
 //
 //
@@ -74,6 +96,7 @@ main()
 {
         test(test_create_streaming_socket);
         test(test_initialize_address_port_structure);
+        test(test_assign_port_number_to_socket);
         printf("Total tests passed: %d", tests_passed);
         printf(" of %d\n", tests_run);
         return !(tests_passed == tests_run);

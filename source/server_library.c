@@ -15,7 +15,7 @@ int run_server()
 
   int sockfd = create_streaming_socket();
   struct sockaddr_in self = initialize_address_port_structure();
-  sockfd = assign_port_number_to_socket(sockfd, self);
+  assign_port_number_to_socket(sockfd, self);
   sockfd = make_listening_socket(sockfd);
 
   /* loop forever */
@@ -65,15 +65,13 @@ struct sockaddr_in initialize_address_port_structure() {
   return self;
 }
 
-int assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
+void assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
   int bind_result = bind(sockfd, (struct sockaddr*)&self, sizeof(self));
   if ( bind_result != 0 )
   {
     perror("socket--bind");
     exit(errno);
   }
-  return sockfd;
-
 }
 
 int make_listening_socket(int sockfd) {
