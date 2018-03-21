@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <setjmp.h>
+
+#include <errno.h>
+#include <sys/socket.h>
+#include <resolv.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <strings.h>
+
 #include "server_library.h"
 
 // redefine assert to set a boolean flag
@@ -9,168 +16,65 @@
 #undef assert
 #endif
 
-#define assert(x) (rslt = rslt && (x))
 #define TRUE 1
 #define FALSE 0
 
-
-// main result return code used by redefined assert
-static int      rslt;
-
-//variables controling stub functions
-static int      expected_code;
-static int      should_exit;
-static jmp_buf  jump_env;
-
-//test suite main variables
-static int      done;
-static int      num_tests;
-static int      tests_passed;
-
-//utility function
-void 
-TestStart(char *name)
-{
-        num_tests++;
-        rslt = 1;
-        printf("-- Testing %s ... ", name);
-}
-
-//utility function
-void 
-TestEnd()
-{
-        if (rslt)
-                tests_passed++;
-        printf("%s\n", rslt ? "success" : "fail");
-}
-
-//stub function
-void 
-exit(int code)
-{
-        if (!done) {
-                assert(should_exit == TRUE);
-                assert(expected_code == code);
-                longjmp(jump_env, 1);
-        } else {
-                _exit(code);
+#define assert(x) \
+        tests_run++;  \
+        printf("\tresult for ( %s ): ", #x); \
+        if((x)) { \
+          tests_passed++; \
+          printf("success\n"); \
+        } else {          \
+          printf("failure\n"); \
         }
+
+#define test(name) \
+  printf("-- Testing %s ... \n", #name); \
+  name();
+
+// count of tests run
+static int tests_run = 0;
+
+// count of tests passed
+static int tests_passed = 0;
+
+// stub function
+int socket(int domain, int type, int protocol) {
+  return 42;
 }
 
-//test case
-/* what happens if we divide 12 by 3?  Should return 4. */
-void 
-test_mydiv_normal()
-{
-        int             jmp_rval;
-        int             r;
+// TESTS START 
+//
+//
 
-        TestStart("test_mydiv_normal");
-        should_exit = FALSE;
-        if (!(jmp_rval = setjmp(jump_env))) {
-                r = my_div(12, 3);
-        }
-        assert(jmp_rval == 0);
-        assert(r == 4);
-        TestEnd();
+// Unit Test
+void
+test_create_streaming_socket() {
+  int sockfd = create_streaming_socket();
+  assert(sockfd == 42);
 }
 
-//test case
-/* if we divide by 0, the code should exit with a value of 2 */
-void 
-test_mydiv_div0()
-{
-        int             jmp_rval;
-        int             r;
+// Unit Test
+void
+test_initialize_address_port_structure() {
+  struct sockaddr_in output = initialize_address_port_structure();
 
-        TestStart("test_mydiv_div0");
-        should_exit = TRUE;
-        expected_code = 2;
-        if (!(jmp_rval = setjmp(jump_env))) {
-                r = my_div(2, 0);
-        }
-        assert(jmp_rval == 1);
-        TestEnd();
+  assert(output.sin_family == AF_INET);
+  assert(output.sin_port == htons(MY_PORT));
+  assert(output.sin_addr.s_addr == INADDR_ANY);
 }
 
-//test case
-/*
- * we should see the procedure return SMALL when we pass in a value of 25.
- */
-void 
-test_calculateSize_small_happyPath()
-{
-        TestStart("test_calculateSize_small_happyPath");
-        assert(calculate_size(25) == SMALL);
-        TestEnd();
-}
-
-//test case
-/*
- * we should see the procedure return MEDIUM when we pass in a value of 30.
- */
-void 
-test_calculateSize_medium_happyPath()
-{
-        TestStart("test_calculateSize_medium_happyPath");
-        assert(calculate_size(30) == MEDIUM);
-        TestEnd();
-}
-
-//test case
-/*
- * we should see the procedure return LARGE when we pass in a value of 36.
- */
-void 
-test_calculateSize_large_happyPath()
-{
-        TestStart("test_calculateSize_large_happyPath");
-        assert(calculate_size(36) == LARGE);
-        TestEnd();
-}
-
-//test case
-/*
- * we should see the procedure return XLARGE when we pass in a value of 45.
- */
-void 
-test_calculateSize_xlarge_happyPath()
-{
-        TestStart("test_calculateSize_xlarge_happyPath");
-        assert(calculate_size(45) == XLARGE);
-        TestEnd();
-}
-
-//test case
-/*
- * we should see the procedure return UNKNOWN when we pass in a value of 56
- * or -5
- */
-void 
-test_calculateSize_unknown()
-{
-        TestStart("test_calculateSize_unknown");
-        assert(calculate_size(56) == UNKNOWN);
-        assert(calculate_size(-5) == UNKNOWN);
-        TestEnd();
-}
+// TESTS END
+//
+//
 
 int 
 main()
 {
-        num_tests = 0;
-        tests_passed = 0;
-        done = FALSE;
-        test_mydiv_normal();
-        test_mydiv_div0();
-        test_calculateSize_small_happyPath();
-        test_calculateSize_medium_happyPath();
-        test_calculateSize_large_happyPath();
-        test_calculateSize_xlarge_happyPath();
-        test_calculateSize_unknown();
+        test(test_create_streaming_socket);
+        test(test_initialize_address_port_structure);
         printf("Total tests passed: %d", tests_passed);
-        printf(" of %d\n", num_tests);
-        done = TRUE;
-        return !(tests_passed == num_tests);
+        printf(" of %d\n", tests_run);
+        return !(tests_passed == tests_run);
 }
