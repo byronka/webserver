@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 # this script will set appropriate environment variables
 # so that we can add flexibility and robustness to our work
 # environment.
@@ -24,11 +25,11 @@ export WEBSERVER_DEVEL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export WEBSERVER_DEVEL_SOURCE="$WEBSERVER_DEVEL_HOME/source"
 
 # the build directory, where compiled files are located
-export WEBSERVER_DEVEL_BUILD="$WEBSERVER_DEVEL_SOURCE/b"
+export WEBSERVER_DEVEL_BUILD="$WEBSERVER_DEVEL_HOME/build"
 
 # we will add the script directory to our path so we can run
 # the build scripts from anywhere.
-export WEBSERVER_DEVEL_SCRIPT="$WEBSERVER_DEVEL_SOURCE/s"
+export WEBSERVER_DEVEL_SCRIPT="$WEBSERVER_DEVEL_HOME/scripts"
 
 export PATH=$PATH:$WEBSERVER_DEVEL_SCRIPT
 
@@ -47,8 +48,22 @@ export PS1="[Developing] [\W] \$ "
 
 devhelp() {
   echo "            --- HELP ---         "
-  echo "  1. blah"
-  echo "  2. blah"
-  echo "  3. blah"
+  echo "  The following scripts can be used anywhere: "
+  echo "   build_server.sh - builds objects that need compilation and"
+  echo "                     links them together as needed for non-test usage"
+  echo
+  echo "   delete_all_compiled.sh - simply deletes the build directory"
+  echo
+  echo "   delete_objects.sh - deletes all the object files in build directory"
+  echo
+  echo "   delete_server.sh - deletes the server executable"
+  echo
+  echo "   delete_tests.sh - deletes the test executables"
+  echo
+  echo "   run_and_delete_tests.sh - runs the tests, then deletes the test executables"
+ 
 }
 
+
+
+# vim: ai:tw=70
