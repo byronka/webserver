@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 
-int run_server(int port_number)
+void run_server(int port_number)
 {   
   int sockfd = create_usable_socket(port_number);
 
@@ -19,7 +19,6 @@ int run_server(int port_number)
     accept_receive_send_back_data(sockfd);
   }
   close(sockfd);
-  return 0;
 }
 
 /*

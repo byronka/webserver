@@ -2,7 +2,7 @@
 #define TRUE 1
 #define FALSE 0
 
-int run_server();
+void run_server();
 int create_streaming_socket();
 struct sockaddr_in initialize_address_port_structure(int port_number);
 void assign_port_number_to_socket(int sockfd, struct sockaddr_in self);

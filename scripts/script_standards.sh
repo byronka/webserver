@@ -10,11 +10,4 @@ if [ -z "$WEBSERVER_ENV_VARIABLES" ]; then
   exit 1
 fi  
 
-#following will cause the script to halt if any program returns
-#a non-zero (error) exit.
-set -e
-
-#show commands as they run
-#set -x
-
 
