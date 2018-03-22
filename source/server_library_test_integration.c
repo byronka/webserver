@@ -48,11 +48,13 @@ static int tests_passed = 0;
 //
 //
 
+
 // Unit Test
+// this method is basically an integration of everything
+// when we create a valid server socket and start listening.
 void test_create_usable_socket() {
   int sockfd = create_usable_socket(PORT_NUMBER);
   assert(sockfd > 0);
-
 }
 
 // TESTS END
