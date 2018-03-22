@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #####################
 # Boilerplate BEGIN #
@@ -17,24 +17,6 @@ source $CURRENT_DIR/script_standards.sh
 
 
 
-###############################
-# Variable Declarations BEGIN #
-###############################
-# variables we'll use later in the script.
-
-#setting some aliases to have shorter command strings.
-SRC=$WEBSERVER_DEVEL_SOURCE
-BLD=$WEBSERVER_DEVEL_BUILD
-CC=$WEBSERVER_C_COMPILER 
-
-#############################
-# Variable Declarations END #
-#############################
-
-
-
-
-
 ##############################
 # Command Execution BEGIN    #
 ##############################
@@ -47,8 +29,15 @@ $CURRENT_DIR/delete_build.sh
 # compile source files to object files if they need compiling.
 $CURRENT_DIR/compile_source.sh STANDARD
 
+# if the build directory doesn't exist, create it.
+if [ ! -d "$WEBSERVER_DEVEL_EXEC" ]; then
+  echo "executables directory didn't exist.  creating it..."
+  mkdir -p $WEBSERVER_DEVEL_EXEC
+  echo "executable directory created"
+fi
+
 # linking the objects for non-test use
-$CC $BLD/server_library.o $BLD/business_library.o $BLD/server.o -o $BLD/server
+$WEBSERVER_C_COMPILER $WEBSERVER_DEVEL_OBJECTS/server_library.o $WEBSERVER_DEVEL_OBJECTS/business_library.o $WEBSERVER_DEVEL_OBJECTS/server.o -o $WEBSERVER_DEVEL_EXEC/server
 echo work finished.
 
 set +e

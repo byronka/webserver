@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #####################
 # Boilerplate BEGIN #
@@ -13,8 +13,8 @@ source $CURRENT_DIR/script_standards.sh
 # Boilerplate END #
 ###################
 
+# remove the top-level build directory
 if [ -d "$WEBSERVER_DEVEL_BUILD" ]; then
   rm -fr $WEBSERVER_DEVEL_BUILD
 fi
-
 

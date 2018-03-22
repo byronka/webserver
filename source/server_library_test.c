@@ -16,9 +16,6 @@
 #undef assert
 #endif
 
-#define TRUE 1
-#define FALSE 0
-
 #define assert(x) \
         tests_run++;  \
         printf("\tresult for ( %s ): ", #x); \

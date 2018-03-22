@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 
 #####################
@@ -25,17 +25,6 @@ source $CURRENT_DIR/script_standards.sh
 
 #setting variable to count number of objects built
 COUNT_OF_OBJECTS_BUILT=0
-
-#setting some aliases to have shorter command strings.
-
-#the source file directory
-SRC=$WEBSERVER_DEVEL_SOURCE
-
-# the build directory
-BLD=$WEBSERVER_DEVEL_BUILD
-
-# the compiler we want to use
-CC=$WEBSERVER_C_COMPILER 
 
 # the parameters we want to send to the compiler
 # possibilities: 
@@ -65,16 +54,16 @@ RUN_MODE=$1
 
 # if the build directory doesn't exist, create it.
 create_build_directory_if_necessary() {
-  if [ ! -d "$WEBSERVER_DEVEL_BUILD" ]; then
-    echo "build directory didn't exist.  creating it..."
-    mkdir $WEBSERVER_DEVEL_BUILD
+  if [ ! -d "$WEBSERVER_DEVEL_OBJECTS" ]; then
+    echo "objects build directory didn't exist.  creating it..."
+    mkdir -p $WEBSERVER_DEVEL_OBJECTS
     echo "build directory created"
   fi
 }
 
 #compile a c source file to an object in the build directory
 build() {
-  $CC $CC_PARAMS --std=gnu99 -c $SRC/$1.c -o $BLD/$1.o
+  $WEBSERVER_C_COMPILER $CC_PARAMS --std=gnu99 -c $WEBSERVER_DEVEL_SOURCE/$1.c -o $WEBSERVER_DEVEL_OBJECTS/$1.o
   COUNT_OF_OBJECTS_BUILT=$((COUNT_OF_OBJECTS_BUILT + 1))
 }
 
@@ -85,13 +74,13 @@ build() {
 # results: builds an object file if needed, otherwise does nothing.
 build_if_not_exist() {
   # if the built file doesn't exist, build it and return
-  if [ ! -f "$BLD/$1.o" ]; then
+  if [ ! -f "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
     echo "building $1.c because it didn't exist"
     build $1
     return
   fi
 
-  if [ "$SRC/$1.c" -nt "$BLD/$1.o" ]; then
+  if [ "$WEBSERVER_DEVEL_SOURCE/$1.c" -nt "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
     echo "building $1.c because the source file is newer that the object file"
     build $1
     return
@@ -145,6 +134,6 @@ echo $COUNT_OF_OBJECTS_BUILT objects built
 set +e
 
 ##############################
-# Command Execution BEGIN    #
+# Command Execution END      #
 ##############################
 

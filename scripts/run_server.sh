@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #####################
 # Boilerplate BEGIN #
@@ -16,6 +16,6 @@ source $CURRENT_DIR/script_standards.sh
 $CURRENT_DIR/build_server.sh
 
 echo running server...
-$WEBSERVER_DEVEL_BUILD/server
+$WEBSERVER_DEVEL_EXEC/server
 echo work finished.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # this script will set appropriate environment variables
 # so that we can add flexibility and robustness to our work
 # environment.
@@ -24,8 +24,17 @@ export WEBSERVER_DEVEL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # the source directory, where our source files are located
 export WEBSERVER_DEVEL_SOURCE="$WEBSERVER_DEVEL_HOME/source"
 
-# the build directory, where compiled files are located
+# the top-level build directory, where compiled files are located
 export WEBSERVER_DEVEL_BUILD="$WEBSERVER_DEVEL_HOME/build"
+
+# the object build directory, where objects are located
+export WEBSERVER_DEVEL_OBJECTS="$WEBSERVER_DEVEL_BUILD/objects"
+
+# the test build directory, where test executables are located
+export WEBSERVER_DEVEL_TESTS="$WEBSERVER_DEVEL_BUILD/tests"
+
+# the non-test build directory, where non-test executables are stored
+export WEBSERVER_DEVEL_EXEC="$WEBSERVER_DEVEL_BUILD/exec"
 
 # we will add the script directory to our path so we can run
 # the build scripts from anywhere.
@@ -51,6 +60,7 @@ devhelp() {
   echo "   delete_build.sh - simply deletes the build directory"
   echo "   run_tests.sh - builds (if needed), links, and runs the tests"
   echo "   run_server.sh - builds (if needed), links, then runs server"
+  echo
  
 }
 
