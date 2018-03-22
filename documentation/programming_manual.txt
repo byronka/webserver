@@ -1,12 +1,24 @@
 WEBSERVER
 =========
 
-this program will provide the functions necessary for a web
-application.  It will be fast, and simple.  It won't necessarily be
-easy.
+private macro
+-------------
 
-1. server
-2. database
+You will notice that c procedures often have the keyword "private" in
+their signatures.  For example:
+
+  private void make_listening_socket(int sockfd);
+
+Be aware that "private" is a macro that simply adds the keyword
+"static" if we are *not* in DEBUG mode.  This is because the static
+keyword makes it impossible for our tests to access the procedure.
+When debugging and running tests, we need total access. This is how
+we can define which procedures are publicly callable and which are
+mostly internal to that module.
+
+
+
+
 
 
 // The following line sets the configuration when using Vim
