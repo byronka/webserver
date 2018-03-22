@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 #check that the base directory has been set in the environment.
 #if not, tell the user to run the command first.
