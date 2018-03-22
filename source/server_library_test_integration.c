@@ -36,6 +36,7 @@
 
 #define PORT_NUMBER 9999
 
+int create_usable_socket(int port_number);
 
 // count of tests run
 static int tests_run = 0;

@@ -10,7 +10,28 @@
 #include <strings.h>
 #include <unistd.h>
 
+// if we are in DEBUG mode, remove the static keyword so
+// we can access the method from the test code.
+#ifdef DEBUG
+#define private 
+#else
+#define private static 
+#endif
+  
+// declare the "private" functions for this file.
+private void make_listening_socket(int sockfd);
+private int accept_a_connection(int sockfd);
+private void do_exit(int error_number);
+private int create_usable_socket(int port_number);
+private int create_streaming_socket();
+private struct sockaddr_in initialize_address_port_structure(int port_number);
+private void bind_address_to_socket(int sockfd, struct sockaddr_in self);
+private void accept_receive_send_back_data(int sockfd);
 
+/*
+ * This is the only function that is exposed to
+ * external callers. See details in server_library.h
+ */
 void run_server(int port_number)
 {   
   int sockfd = create_usable_socket(port_number);
@@ -24,7 +45,7 @@ void run_server(int port_number)
 /*
  * Simply receive any data sent and echo it back to the user
  */
-void accept_receive_send_back_data(int sockfd) {
+private void accept_receive_send_back_data(int sockfd) {
     char buffer[MAXBUF];
     int clientfd = accept_a_connection(sockfd);
 
@@ -41,15 +62,15 @@ void accept_receive_send_back_data(int sockfd) {
  * go through all the steps to produce a socket ready for
  * sending and receiving
  */
-int create_usable_socket(int port_number) {
+private int create_usable_socket(int port_number) {
   int sockfd = create_streaming_socket();
   struct sockaddr_in self = initialize_address_port_structure(port_number);
-  assign_port_number_to_socket(sockfd, self);
+  bind_address_to_socket(sockfd, self);
   make_listening_socket(sockfd);
   return sockfd;
 }
 
-int accept_a_connection(int sockfd) {
+private int accept_a_connection(int sockfd) {
     struct sockaddr_in client_addr;
     socklen_t addrlen = sizeof(client_addr);
     int clientfd = accept(sockfd, (struct sockaddr*)&client_addr, &addrlen);
@@ -57,7 +78,7 @@ int accept_a_connection(int sockfd) {
     return clientfd;
 }
 
-int create_streaming_socket() {
+private int create_streaming_socket() {
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
   if ( sockfd < 0 ) {
@@ -67,7 +88,7 @@ int create_streaming_socket() {
   return sockfd;
 }
 
-struct sockaddr_in initialize_address_port_structure(int port_number) {
+private struct sockaddr_in initialize_address_port_structure(int port_number) {
   struct sockaddr_in self;
   bzero(&self, sizeof(self));
   self.sin_family = AF_INET;
@@ -76,7 +97,7 @@ struct sockaddr_in initialize_address_port_structure(int port_number) {
   return self;
 }
 
-void assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
+private void bind_address_to_socket(int sockfd, struct sockaddr_in self) {
   int bind_result = bind(sockfd, (struct sockaddr*)&self, sizeof(self));
   if ( bind_result != 0 )
   {
@@ -85,7 +106,7 @@ void assign_port_number_to_socket(int sockfd, struct sockaddr_in self) {
   }
 }
 
-void make_listening_socket(int sockfd) {
+private void make_listening_socket(int sockfd) {
   if ( listen(sockfd, 20) != 0 )
   {
     perror("socket--listen");
@@ -97,7 +118,7 @@ void make_listening_socket(int sockfd) {
  * wrapping exit so it doesn't actually exit while debugging and
  * testing.
  */
-void do_exit(int errno) {
+private void do_exit(int error_number) {
 #ifndef DEBUG
   exit(errno);
 #endif
