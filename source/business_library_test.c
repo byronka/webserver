@@ -42,40 +42,40 @@ static int tests_passed = 0;
 /*
  * we should see the procedure return SMALL when we pass in a value of 25.
  */
-void 
-test_calculateSize_small_happyPath()
+void
+test_calculateSize_small_happyPath ()
 {
-        assert(calculate_size(25) == SMALL);
+  assert (calculate_size (25) == SMALL);
 }
 
 //test case
 /*
  * we should see the procedure return MEDIUM when we pass in a value of 30.
  */
-void 
-test_calculateSize_medium_happyPath()
+void
+test_calculateSize_medium_happyPath ()
 {
-        assert(calculate_size(30) == MEDIUM);
+  assert (calculate_size (30) == MEDIUM);
 }
 
 //test case
 /*
  * we should see the procedure return LARGE when we pass in a value of 36.
  */
-void 
-test_calculateSize_large_happyPath()
+void
+test_calculateSize_large_happyPath ()
 {
-        assert(calculate_size(36) == LARGE);
+  assert (calculate_size (36) == LARGE);
 }
 
 //test case
 /*
  * we should see the procedure return XLARGE when we pass in a value of 45.
  */
-void 
-test_calculateSize_xlarge_happyPath()
+void
+test_calculateSize_xlarge_happyPath ()
 {
-        assert(calculate_size(45) == XLARGE);
+  assert (calculate_size (45) == XLARGE);
 }
 
 //test case
@@ -83,16 +83,17 @@ test_calculateSize_xlarge_happyPath()
  * we should see the procedure return UNKNOWN when we pass in a value of 56
  * or -5
  */
-void 
-test_calculateSize_unknown() {
-        assert(calculate_size(56) == UNKNOWN);
+void
+test_calculateSize_unknown ()
+{
+  assert (calculate_size (56) == UNKNOWN);
 }
 
 //test case
-void 
-test_calculateSize_unknown_2()
+void
+test_calculateSize_unknown_2 ()
 {
-        assert(calculate_size(-5) == UNKNOWN);
+  assert (calculate_size (-5) == UNKNOWN);
 }
 
 
@@ -101,16 +102,16 @@ test_calculateSize_unknown_2()
 //
 //
 
-int 
-main()
+int
+main ()
 {
-        test(test_calculateSize_small_happyPath);
-        test(test_calculateSize_medium_happyPath);
-        test(test_calculateSize_large_happyPath);
-        test(test_calculateSize_xlarge_happyPath);
-        test(test_calculateSize_unknown);
-        test(test_calculateSize_unknown_2);
-        printf("Total tests passed: %d", tests_passed);
-        printf(" of %d\n", tests_run);
-        return !(tests_passed == tests_run);
+  test (test_calculateSize_small_happyPath);
+  test (test_calculateSize_medium_happyPath);
+  test (test_calculateSize_large_happyPath);
+  test (test_calculateSize_xlarge_happyPath);
+  test (test_calculateSize_unknown);
+  test (test_calculateSize_unknown_2);
+  printf ("Total tests passed: %d", tests_passed);
+  printf (" of %d\n", tests_run);
+  return !(tests_passed == tests_run);
 }

@@ -36,7 +36,7 @@
 
 #define PORT_NUMBER 9999
 
-int create_usable_socket(int port_number);
+int create_usable_socket (int port_number);
 
 // count of tests run
 static int tests_run = 0;
@@ -52,20 +52,22 @@ static int tests_passed = 0;
 // Unit Test
 // this method is basically an integration of everything
 // when we create a valid server socket and start listening.
-void test_create_usable_socket() {
-  int sockfd = create_usable_socket(PORT_NUMBER);
-  assert(sockfd > 0);
+void
+test_create_usable_socket ()
+{
+  int sockfd = create_usable_socket (PORT_NUMBER);
+  assert (sockfd > 0);
 }
 
 // TESTS END
 //
 //
 
-int 
-main()
+int
+main ()
 {
-        test(test_create_usable_socket);
-        printf("Total tests passed: %d", tests_passed);
-        printf(" of %d\n", tests_run);
-        return !(tests_passed == tests_run);
+  test (test_create_usable_socket);
+  printf ("Total tests passed: %d", tests_passed);
+  printf (" of %d\n", tests_run);
+  return !(tests_passed == tests_run);
 }
