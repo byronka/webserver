@@ -50,7 +50,6 @@ CC_PARAMS=""
 # main difference being that in DEBUG, we add debugging symbols.
 # This variable will be adjusted by a function later, set_compiler_parameters
 RUN_MODE=$1
-echo RUN_MODE is $RUN_MODE
 
 #############################
 # Variable Declarations END #
@@ -108,13 +107,22 @@ loop_through_source_files_and_build_if_needed() {
 
 # mainly used to switch between normal and debug modes of compilation
 set_compiler_parameters() {
+  if [ -z "$RUN_MODE" ]; then
+    echo "ERROR: RUN_MODE was not provided."
+    exit 3
+  fi
+
   if [ $RUN_MODE == "STANDARD" ]; then
     CC_PARAMS=" -c "
   elif [ $RUN_MODE == "DEBUG" ]; then
     CC_PARAMS=" -c -g -DDEBUG "
   else
+    echo "ERROR: ran to the end of the build modes without selecting one."
     echo "ERROR: needed to be passed either STANDARD or DEBUG for the compile mode"
+    exit 4
   fi
+
+  echo RUN_MODE is $RUN_MODE
 }
 
 ##############################
