@@ -40,17 +40,10 @@ export WEBSERVER_ENV_VARIABLES="configured"
 # choose the c compiler we want to use.
 export WEBSERVER_C_COMPILER="gcc"
 
-
-echo
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "invoking subshell.  Note you are now in a subshell"
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo
-#change the prompt so it's clear we are in dev mode.
-export PS1="[Developing] [\W] \$ "
-
 devhelp() {
   echo "            --- HELP ---         "
+  echo "      (run devhelp to see this again)"
+  echo
   echo "  The following scripts can be used anywhere: "
   echo "   build_server.sh - builds objects that need compilation and"
   echo "                     links them together as needed for non-test usage"
@@ -60,6 +53,16 @@ devhelp() {
   echo "   run_server.sh - builds (if needed), links, then runs server"
  
 }
+
+echo
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "invoking subshell.  Note you are now in a subshell"
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo
+devhelp
+#change the prompt so it's clear we are in dev mode.
+export PS1="[Developing] [\W] \$ "
+
 
 
 
