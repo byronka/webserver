@@ -7,7 +7,7 @@
 #include <resolv.h>
 #include <arpa/inet.h>
 #include <errno.h>
-#include <strings.h>
+#include <string.h>
 #include <unistd.h>
 
 // purpose of this define:
@@ -52,13 +52,14 @@ run_server (int port_number)
 private void
 accept_receive_send_back_data (int sockfd)
 {
-  char buffer[MAXBUF];
   int clientfd = accept_a_connection (sockfd);
 
-  ssize_t size = recv (clientfd, buffer, MAXBUF, 0);
-  printf ("Received: %s", buffer);
-
-  send (clientfd, buffer, size, 0);
+  while (TRUE) {
+    char buffer[MAXBUF];
+    ssize_t size = recv (clientfd, buffer, MAXBUF, 0);
+    printf ("Received: %s", buffer);
+    send (clientfd, buffer, size, 0);
+  }
 
   close (clientfd);
 }
