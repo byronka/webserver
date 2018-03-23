@@ -55,12 +55,11 @@ accept_receive_send_back_data (int sockfd)
   char buffer[MAXBUF];
   int clientfd = accept_a_connection (sockfd);
 
-    /*---Echo back anything sent---*/
   ssize_t size = recv (clientfd, buffer, MAXBUF, 0);
   printf ("Received: %s", buffer);
+
   send (clientfd, buffer, size, 0);
 
-    /*---Close data connection---*/
   close (clientfd);
 }
 
@@ -96,7 +95,7 @@ create_streaming_socket ()
 
   if (sockfd < 0)
     {
-      perror ("Socket");
+      perror ("create_streaming_socket");
       do_exit (errno);
     }
   return sockfd;
@@ -119,7 +118,7 @@ bind_address_to_socket (int sockfd, struct sockaddr_in self)
   int bind_result = bind (sockfd, (struct sockaddr *) &self, sizeof (self));
   if (bind_result != 0)
     {
-      perror ("socket--bind");
+      perror ("bind_address_to_socket");
       do_exit (errno);
     }
 }
@@ -129,7 +128,7 @@ make_listening_socket (int sockfd)
 {
   if (listen (sockfd, 20) != 0)
     {
-      perror ("socket--listen");
+      perror ("make_listening_socket");
       do_exit (errno);
     }
 }
