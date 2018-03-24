@@ -58,8 +58,8 @@ devhelp() {
   echo "                     links them together as needed for non-test usage"
   echo
   echo "   delete_build.sh - simply deletes the build directory"
-  echo "   run_tests.sh - builds (if needed), links, and runs the tests"
-  echo "   run_program.sh - builds (if needed), links, then runs program"
+  echo "   run_tests.sh - builds, links, and runs the tests"
+  echo "   run_program.sh - builds, links, then runs program"
   echo
  
 }
