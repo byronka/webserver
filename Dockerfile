@@ -1,4 +1,4 @@
-FROM 5n5mrpesus/c_dev_environment_1
+FROM 5n5mrpesus/c_dev_environment_1:version2
 
 WORKDIR /usr/src
 RUN git clone https://github.com/byronka/webserver.git
