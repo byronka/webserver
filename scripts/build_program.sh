@@ -8,6 +8,10 @@
 SCRIPT=$(readlink -f "$0")
 CURRENT_DIR=$(dirname "$SCRIPT")
 source $CURRENT_DIR/script_standards.sh
+#there are two types of LOG_MODE: ERROR and DEBUG.
+#ERROR only shows errors occuring.
+#DEBUG shows many more messages about what's going on.
+LOG_MODE=ERROR
 
 ###################
 # Boilerplate END #
@@ -31,9 +35,14 @@ $CURRENT_DIR/compile_source.sh STANDARD
 
 # if the build directory doesn't exist, create it.
 if [ ! -d "$WEBSERVER_DEVEL_EXEC" ]; then
-  echo "executables directory didn't exist.  creating it..."
+  if [ $LOG_MODE == "DEBUG" ]; then
+    echo "executables directory didn't exist.  creating it..."
+  fi
   mkdir -p $WEBSERVER_DEVEL_EXEC
-  echo "executable directory created"
+
+  if [ $LOG_MODE == "DEBUG" ]; then
+    echo "executable directory created"
+  fi
 fi
 
 # note that if we build statically, we will need the static c libraries.
@@ -41,6 +50,5 @@ fi
 
 # linking the objects for non-test use
 $WEBSERVER_C_COMPILER -static $WEBSERVER_DEVEL_OBJECTS/business_library.o $WEBSERVER_DEVEL_OBJECTS/pant_size.o -o $WEBSERVER_DEVEL_EXEC/pant_size
-echo work finished.
 
 set +e

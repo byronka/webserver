@@ -9,6 +9,10 @@
 SCRIPT=$(readlink -f "$0")
 CURRENT_DIR=$(dirname "$SCRIPT")
 source $CURRENT_DIR/script_standards.sh
+#there are two types of LOG_MODE: ERROR and DEBUG.
+#ERROR only shows errors occuring.
+#DEBUG shows many more messages about what's going on.
+LOG_MODE=ERROR
 
 ###################
 # Boilerplate END #
@@ -55,9 +59,13 @@ COMPILE_MODE=$1
 # if the build directory doesn't exist, create it.
 create_build_directory_if_necessary() {
   if [ ! -d "$WEBSERVER_DEVEL_OBJECTS" ]; then
-    echo "objects build directory didn't exist.  creating it..."
+    if [ $LOG_MODE == "DEBUG" ]; then
+      echo "objects build directory didn't exist.  creating it..."
+    fi
     mkdir -p $WEBSERVER_DEVEL_OBJECTS
-    echo "build directory created"
+    if [ $LOG_MODE == "DEBUG" ]; then
+      echo "build directory created"
+    fi
   fi
 }
 
@@ -75,13 +83,17 @@ build() {
 build_if_not_exist() {
   # if the built file doesn't exist, build it and return
   if [ ! -f "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
-    echo "building $1.c because it didn't exist"
+    if [ $LOG_MODE == "DEBUG" ]; then
+      echo "building $1.c because it didn't exist"
+    fi
     build $1
     return
   fi
 
   if [ "$WEBSERVER_DEVEL_SOURCE/$1.c" -nt "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
-    echo "building $1.c because the source file is newer that the object file"
+    if [ $LOG_MODE == "DEBUG" ]; then
+      echo "building $1.c because the source file is newer that the object file"
+    fi
     build $1
     return
   fi
@@ -89,7 +101,9 @@ build_if_not_exist() {
 
 
 loop_through_source_files_and_build_if_needed() {
-  echo building objects...
+  if [ $LOG_MODE == "DEBUG" ]; then
+    echo building objects...
+  fi
   for f in $WEBSERVER_DEVEL_SOURCE/*.c; do build_if_not_exist $(basename -s .c $f); done
 }
 
@@ -97,7 +111,9 @@ loop_through_source_files_and_build_if_needed() {
 # mainly used to switch between normal and debug modes of compilation
 set_compiler_parameters() {
   if [ -z "$COMPILE_MODE" ]; then
-    echo "COMPILE_MODE was not provided. Setting to STANDARD"
+    if [ $LOG_MODE == "DEBUG" ]; then
+      echo "COMPILE_MODE was not provided. Setting to STANDARD"
+    fi
     COMPILE_MODE="STANDARD"
   fi
 
@@ -111,7 +127,9 @@ set_compiler_parameters() {
     exit 4
   fi
 
-  echo COMPILE_MODE is $COMPILE_MODE
+  if [ $LOG_MODE == "DEBUG" ]; then
+    echo COMPILE_MODE is $COMPILE_MODE
+  fi
 }
 
 ##############################
@@ -130,7 +148,9 @@ set -e
 create_build_directory_if_necessary
 set_compiler_parameters
 loop_through_source_files_and_build_if_needed
-echo $COUNT_OF_OBJECTS_BUILT objects built
+if [ $LOG_MODE == "DEBUG" ]; then
+  echo $COUNT_OF_OBJECTS_BUILT objects built
+fi
 set +e
 
 ##############################
