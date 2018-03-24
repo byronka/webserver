@@ -43,7 +43,7 @@ static int tests_passed = 0;
  * we should see the procedure return PANT_SMALL when we pass in a value of 25.
  */
 void
-test_calculateSize_small_happyPath ()
+test_calculatePantSize_small_happyPath ()
 {
   assert (calculate_pant_size (25) == PANT_SMALL);
 }
@@ -53,7 +53,7 @@ test_calculateSize_small_happyPath ()
  * we should see the procedure return PANT_MEDIUM when we pass in a value of 30.
  */
 void
-test_calculateSize_medium_happyPath ()
+test_calculatePantSize_medium_happyPath ()
 {
   assert (calculate_pant_size (30) == PANT_MEDIUM);
 }
@@ -63,7 +63,7 @@ test_calculateSize_medium_happyPath ()
  * we should see the procedure return PANT_LARGE when we pass in a value of 36.
  */
 void
-test_calculateSize_large_happyPath ()
+test_calculatePantSize_large_happyPath ()
 {
   assert (calculate_pant_size (36) == PANT_LARGE);
 }
@@ -73,7 +73,7 @@ test_calculateSize_large_happyPath ()
  * we should see the procedure return PANT_XLARGE when we pass in a value of 45.
  */
 void
-test_calculateSize_xlarge_happyPath ()
+test_calculatePantSize_xlarge_happyPath ()
 {
   assert (calculate_pant_size (45) == PANT_XLARGE);
 }
@@ -83,14 +83,14 @@ test_calculateSize_xlarge_happyPath ()
  * we should see the procedure return PANT_UNKNOWN when we pass in a value of 66
  */
 void
-test_calculateSize_unknown ()
+test_calculatePantSize_unknown ()
 {
   assert (calculate_pant_size (66) == PANT_UNKNOWN);
 }
 
 //test case
 void
-test_calculateSize_unknown_2 ()
+test_calculatePantSize_unknown_2 ()
 {
   assert (calculate_pant_size (-5) == PANT_UNKNOWN);
 }
@@ -104,12 +104,12 @@ test_calculateSize_unknown_2 ()
 int
 main ()
 {
-  test (test_calculateSize_small_happyPath);
-  test (test_calculateSize_medium_happyPath);
-  test (test_calculateSize_large_happyPath);
-  test (test_calculateSize_xlarge_happyPath);
-  test (test_calculateSize_unknown);
-  test (test_calculateSize_unknown_2);
+  test (test_calculatePantSize_small_happyPath);
+  test (test_calculatePantSize_medium_happyPath);
+  test (test_calculatePantSize_large_happyPath);
+  test (test_calculatePantSize_xlarge_happyPath);
+  test (test_calculatePantSize_unknown);
+  test (test_calculatePantSize_unknown_2);
   printf ("Total tests passed: %d", tests_passed);
   printf (" of %d\n", tests_run);
   return !(tests_passed == tests_run);
