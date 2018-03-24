@@ -44,31 +44,10 @@ link_business_tests() {
   echo business tests linked.
 }
 
-link_mocked_server_tests() {
-  echo linking files for mocked server testing...
-  $WEBSERVER_C_COMPILER \
-    $WEBSERVER_DEVEL_OBJECTS/server_library.o \
-    $WEBSERVER_DEVEL_OBJECTS/server_library_test.o \
-    -o $WEBSERVER_DEVEL_TESTS/server_tests 
-  echo server tests linked.
-}
-
-link_integration_test() {
-  echo linking files for integrated server testing...
-  $WEBSERVER_C_COMPILER \
-    $WEBSERVER_DEVEL_OBJECTS/server_library.o \
-    $WEBSERVER_DEVEL_OBJECTS/server_library_test_integration.o \
-    -o $WEBSERVER_DEVEL_TESTS/server_tests_integrated
-  echo server tests linked.
-}
 
 run_tests() {
   echo running tests...
-  for mytest in \
-    server_tests \
-    server_tests_integrated \
-    business_tests \
-    ; do \
+  for mytest in business_tests ; do
     echo 
     echo running $WEBSERVER_DEVEL_TESTS/$mytest
     echo
@@ -99,8 +78,6 @@ create_test_build_directory_if_necessary
 echo starting to link files for testing...
 echo
 link_business_tests
-link_mocked_server_tests
-link_integration_test
 run_tests
 set +e
 
