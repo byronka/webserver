@@ -40,59 +40,59 @@ static int tests_passed = 0;
 
 //test case
 /*
- * we should see the procedure return SMALL when we pass in a value of 25.
+ * we should see the procedure return PANT_SMALL when we pass in a value of 25.
  */
 void
 test_calculateSize_small_happyPath ()
 {
-  assert (calculate_pant_size (25) == SMALL);
+  assert (calculate_pant_size (25) == PANT_SMALL);
 }
 
 //test case
 /*
- * we should see the procedure return MEDIUM when we pass in a value of 30.
+ * we should see the procedure return PANT_MEDIUM when we pass in a value of 30.
  */
 void
 test_calculateSize_medium_happyPath ()
 {
-  assert (calculate_pant_size (30) == MEDIUM);
+  assert (calculate_pant_size (30) == PANT_MEDIUM);
 }
 
 //test case
 /*
- * we should see the procedure return LARGE when we pass in a value of 36.
+ * we should see the procedure return PANT_LARGE when we pass in a value of 36.
  */
 void
 test_calculateSize_large_happyPath ()
 {
-  assert (calculate_pant_size (36) == LARGE);
+  assert (calculate_pant_size (36) == PANT_LARGE);
 }
 
 //test case
 /*
- * we should see the procedure return XLARGE when we pass in a value of 45.
+ * we should see the procedure return PANT_XLARGE when we pass in a value of 45.
  */
 void
 test_calculateSize_xlarge_happyPath ()
 {
-  assert (calculate_pant_size (45) == XLARGE);
+  assert (calculate_pant_size (45) == PANT_XLARGE);
 }
 
 //test case
 /*
- * we should see the procedure return UNKNOWN when we pass in a value of 66
+ * we should see the procedure return PANT_UNKNOWN when we pass in a value of 66
  */
 void
 test_calculateSize_unknown ()
 {
-  assert (calculate_pant_size (66) == UNKNOWN);
+  assert (calculate_pant_size (66) == PANT_UNKNOWN);
 }
 
 //test case
 void
 test_calculateSize_unknown_2 ()
 {
-  assert (calculate_pant_size (-5) == UNKNOWN);
+  assert (calculate_pant_size (-5) == PANT_UNKNOWN);
 }
 
 
