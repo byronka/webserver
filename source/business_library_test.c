@@ -45,7 +45,7 @@ static int tests_passed = 0;
 void
 test_calculateSize_small_happyPath ()
 {
-  assert (calculate_size (25) == SMALL);
+  assert (calculate_pant_size (25) == SMALL);
 }
 
 //test case
@@ -55,7 +55,7 @@ test_calculateSize_small_happyPath ()
 void
 test_calculateSize_medium_happyPath ()
 {
-  assert (calculate_size (30) == MEDIUM);
+  assert (calculate_pant_size (30) == MEDIUM);
 }
 
 //test case
@@ -65,7 +65,7 @@ test_calculateSize_medium_happyPath ()
 void
 test_calculateSize_large_happyPath ()
 {
-  assert (calculate_size (36) == LARGE);
+  assert (calculate_pant_size (36) == LARGE);
 }
 
 //test case
@@ -75,7 +75,7 @@ test_calculateSize_large_happyPath ()
 void
 test_calculateSize_xlarge_happyPath ()
 {
-  assert (calculate_size (45) == XLARGE);
+  assert (calculate_pant_size (45) == XLARGE);
 }
 
 //test case
@@ -85,14 +85,14 @@ test_calculateSize_xlarge_happyPath ()
 void
 test_calculateSize_unknown ()
 {
-  assert (calculate_size (66) == UNKNOWN);
+  assert (calculate_pant_size (66) == UNKNOWN);
 }
 
 //test case
 void
 test_calculateSize_unknown_2 ()
 {
-  assert (calculate_size (-5) == UNKNOWN);
+  assert (calculate_pant_size (-5) == UNKNOWN);
 }
 
 

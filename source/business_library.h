@@ -9,4 +9,4 @@ typedef enum { SMALL, MEDIUM, LARGE, XLARGE, UNKNOWN } pant_size;
    calculate size is where the rubber meets the road.  Provide it a
    waist size as an int, and it will give you a pants-size
 */
-pant_size calculate_size (int waist_size);
+pant_size calculate_pant_size (int waist_size);

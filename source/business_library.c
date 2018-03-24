@@ -4,7 +4,7 @@
 
 
 pant_size
-calculate_size (int waist_size)
+calculate_pant_size (int waist_size)
 {
   if (waist_size >= 25 && waist_size < 30) {
       return SMALL;
