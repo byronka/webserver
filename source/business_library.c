@@ -1,5 +1,8 @@
 #include "business_library.h"
 
+/* See header for details on public procedures */
+
+
 pant_size
 calculate_size (int waist_size)
 {
