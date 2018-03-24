@@ -80,13 +80,12 @@ test_calculateSize_xlarge_happyPath ()
 
 //test case
 /*
- * we should see the procedure return UNKNOWN when we pass in a value of 56
- * or -5
+ * we should see the procedure return UNKNOWN when we pass in a value of 66
  */
 void
 test_calculateSize_unknown ()
 {
-  assert (calculate_size (56) == UNKNOWN);
+  assert (calculate_size (66) == UNKNOWN);
 }
 
 //test case
