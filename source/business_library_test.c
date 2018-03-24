@@ -95,6 +95,70 @@ test_calculatePantSize_unknown_2 ()
   assert (calculate_pant_size (-5) == PANT_UNKNOWN);
 }
 
+//test case
+/*
+ * we should see the procedure return SHIRT_SMALL when we pass in a value of 75.
+ */
+void
+test_calculateShirtSize_small_happyPath ()
+{
+  assert (calculate_shirt_size (75) == SHIRT_SMALL);
+}
+
+//test case
+/*
+ * we should see the procedure return SHIRT_MEDIUM when we pass in a value of 95.
+ */
+void
+test_calculateShirtSize_medium_happyPath ()
+{
+  assert (calculate_shirt_size (95) == SHIRT_MEDIUM);
+}
+
+//test case
+/*
+ * we should see the procedure return SHIRT_LARGE when we pass in a value of 110.
+ */
+void
+test_calculateShirtSize_large_happyPath ()
+{
+  assert (calculate_shirt_size (110) == SHIRT_LARGE);
+}
+
+//test case
+/*
+ * we should see the procedure return SHIRT_XLARGE when we pass in a value of 150.
+ */
+void
+test_calculateShirtSize_xlarge_happyPath ()
+{
+  assert (calculate_shirt_size (150) == SHIRT_XLARGE);
+}
+
+//test case
+/*
+ * we should see the procedure return SHIRT_UNKNOWN when we pass in a value of 25
+ */
+void
+test_calculateShirtSize_unknown ()
+{
+  assert (calculate_shirt_size (25) == SHIRT_UNKNOWN);
+}
+
+//test case
+void
+test_calculateShirtSize_unknown_2 ()
+{
+  assert (calculate_shirt_size (-5) == SHIRT_UNKNOWN);
+}
+
+//test case
+void
+test_calculateShirtSize_unknown_3 ()
+{
+  assert (calculate_shirt_size (251) == SHIRT_UNKNOWN);
+}
+
 
 // TESTS END
 //
@@ -110,6 +174,13 @@ main ()
   test (test_calculatePantSize_xlarge_happyPath);
   test (test_calculatePantSize_unknown);
   test (test_calculatePantSize_unknown_2);
+  test (test_calculateShirtSize_small_happyPath);
+  test (test_calculateShirtSize_medium_happyPath);
+  test (test_calculateShirtSize_large_happyPath);
+  test (test_calculateShirtSize_xlarge_happyPath);
+  test (test_calculateShirtSize_unknown);
+  test (test_calculateShirtSize_unknown_2);
+  test (test_calculateShirtSize_unknown_3);
   printf ("Total tests passed: %d", tests_passed);
   printf (" of %d\n", tests_run);
   return !(tests_passed == tests_run);

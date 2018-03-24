@@ -33,7 +33,7 @@ calculate_shirt_size (int body_size) {
   if (body_size >= 110 && body_size < 150) {
       return SHIRT_LARGE;
   }
-  if (body_size > 150 && body_size < 250) {
+  if (body_size >= 150 && body_size < 250) {
       return SHIRT_XLARGE;
   }
 
