@@ -1,9 +1,7 @@
-FROM gcc:4.9
+FROM 5n5mrpesus/c_dev_environment_1
 
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-
-RUN apt-get -y update
-RUN apt-get install -y vim
-RUN mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undodir
-RUN curl https://renomad.com/vimrc_unescaped > ~/.vimrc
+WORKDIR /usr/src
+RUN git clone https://github.com/byronka/webserver.git
+WORKDIR /usr/src/webserver
+RUN git checkout testing_git_bisect_ideas_minimal
+CMD ["./set_environment_variables.sh"]
