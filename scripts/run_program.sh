@@ -13,9 +13,9 @@ source $CURRENT_DIR/script_standards.sh
 # Boilerplate END #
 ###################
 
-$CURRENT_DIR/build_server.sh
+$CURRENT_DIR/build_program.sh
 
 echo running server...
-$WEBSERVER_DEVEL_EXEC/server
+$WEBSERVER_DEVEL_EXEC/pant_size $1
 echo work finished.
 
