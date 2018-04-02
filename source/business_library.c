@@ -15,25 +15,9 @@ calculate_size (int waist_size)
     {
       return LARGE;
     }
-  if (waist_size > 44 && (waist_size == 51 || waist_size <= 55))
+  if (waist_size >= 44 && (waist_size == 51 || waist_size <= 55))
     {
       return XLARGE;
     }
-
-  if (waist_size == 0)
-    {
-      return UNKNOWN;
-    }
-
-  if (waist_size < 0)
-    {
-      return UNKNOWN;
-    }
-
-  if (waist_size > 55)
-    {
-      return UNKNOWN;
-    }
-
   return UNKNOWN;
 }
