@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "server_library.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <errno.h>
 #include <sys/socket.h>
@@ -39,7 +40,7 @@ run_server (int port_number)
 {
   int sockfd = create_usable_socket (port_number);
 
-  while (TRUE)
+  while (true)
     {
       accept_receive_send_back_data (sockfd);
     }
@@ -54,7 +55,7 @@ accept_receive_send_back_data (int sockfd)
 {
   int clientfd = accept_a_connection (sockfd);
 
-  while (TRUE) {
+  while (true) {
     char buffer[MAXBUF];
     ssize_t size = recv (clientfd, buffer, MAXBUF, 0);
     printf ("Received: %s", buffer);

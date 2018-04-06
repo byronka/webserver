@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #include <errno.h>
 #include <sys/socket.h>
@@ -45,7 +46,7 @@ void bind_address_to_socket (int sockfd, struct sockaddr_in self);
 int socket_return_value = 0;
 int bind_return_value = 0;
 int listen_return_value = 0;
-int error_occurred = FALSE;
+int error_occurred = false;
 int accept_return_value = 0;
 
 // count of tests run
@@ -79,7 +80,7 @@ listen (int sockfd, int backlog)
 void
 perror (const char *s)
 {
-  error_occurred = TRUE;
+  error_occurred = true;
 }
 
 // stub function - overriding the real function for testing.
@@ -134,7 +135,7 @@ test_bind_address_to_socket ()
   struct sockaddr_in self = initialize_address_port_structure (PORT_NUMBER);
   int sockfd = 42;
   bind_return_value = 0;
-  error_occurred = FALSE;
+  error_occurred = false;
 
   bind_address_to_socket (sockfd, self);
 
@@ -152,7 +153,7 @@ test_bind_address_to_socket_negative_case ()
   int sockfd = 42;
   bind_return_value = 123;
   //reset the error flag
-  error_occurred = FALSE;
+  error_occurred = false;
 
   bind_address_to_socket (sockfd, self);
 
@@ -169,7 +170,7 @@ test_make_listening_socket ()
   int sockfd = 42;
   listen_return_value = 0;
   //reset the error flag
-  error_occurred = FALSE;
+  error_occurred = false;
 
   make_listening_socket (sockfd);
 
@@ -187,7 +188,7 @@ test_make_listening_socket_negative_case ()
   int sockfd = 42;
   listen_return_value = 123;
   //reset the error flag
-  error_occurred = FALSE;
+  error_occurred = false;
 
   make_listening_socket (sockfd);
 
