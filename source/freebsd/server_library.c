@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "server_library.h"
+#include "../server_library.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -10,7 +10,8 @@
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
-#include "private.h"
+#include "../private.h"
+#include "../do_exit.h"
 
 // declare the "private" functions for this file.
 private void make_listening_socket (int sockfd);
@@ -125,18 +126,6 @@ make_listening_socket (int sockfd)
       perror ("make_listening_socket");
       do_exit (errno);
     }
-}
-
-/**
- * wrapping exit so it doesn't actually exit while debugging and
- * testing.
- */
-private void
-do_exit (int error_number)
-{
-#ifndef DEBUG
-  exit (errno);
-#endif
 }
 
 

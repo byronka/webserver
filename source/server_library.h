@@ -4,4 +4,4 @@
  * creates a server socket and accepts
  * each one.
  */
-void run_server (int maxbuf, int port);
+void run_server (int port);
