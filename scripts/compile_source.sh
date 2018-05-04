@@ -75,13 +75,13 @@ build() {
 build_if_not_exist() {
   # if the built file doesn't exist, build it and return
   if [ ! -f "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
-    echo "building $1.c because it didn't exist"
+    echo "building $1.o because it didn't exist"
     build $1
     return
   fi
 
   if [ "$WEBSERVER_DEVEL_SOURCE/$1.c" -nt "$WEBSERVER_DEVEL_OBJECTS/$1.o" ]; then
-    echo "building $1.c because the source file is newer that the object file"
+    echo "building $1.o because the source file is newer that the object file"
     build $1
     return
   fi
@@ -90,7 +90,8 @@ build_if_not_exist() {
 
 loop_through_source_files_and_build_if_needed() {
   echo building objects...
-  for f in $WEBSERVER_DEVEL_SOURCE/*.c; do build_if_not_exist $(basename -s .c $f); done
+  #in the following line, we use sed to remove the .c suffix, then again to remove all the text to the last slash
+  for f in $WEBSERVER_DEVEL_SOURCE/*.c; do build_if_not_exist $(echo $f|sed 's/\.c$//g'|sed 's/^.*\///g'); done
 }
 
 
