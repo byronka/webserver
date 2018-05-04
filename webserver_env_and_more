@@ -71,7 +71,7 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 devhelp
 #change the prompt so it's clear we are in dev mode.
-export PS1="[Developing] [\W] \$ "
+export PS1="Need help? type: devhelp\n[\W] \$ "
 
 
 
