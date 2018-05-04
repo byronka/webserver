@@ -40,7 +40,7 @@ fi
 # you might not have them. you might need to run "sudo yum install glibc-static"
 
 # linking the objects for non-test use
-$WEBSERVER_C_COMPILER -static $WEBSERVER_DEVEL_OBJECTS/server_library.o $WEBSERVER_DEVEL_OBJECTS/business_library.o $WEBSERVER_DEVEL_OBJECTS/server.o -o $WEBSERVER_DEVEL_EXEC/server
+$WEBSERVER_C_COMPILER $WEBSERVER_DEVEL_OBJECTS/server_library.o $WEBSERVER_DEVEL_OBJECTS/business_library.o $WEBSERVER_DEVEL_OBJECTS/server.o -o $WEBSERVER_DEVEL_EXEC/server
 echo work finished.
 
 set +e
